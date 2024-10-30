@@ -23,7 +23,7 @@ export default function Footer() {
       <a
         rel="noopener noreferrer"
         target="_blank"
-        href="https://vercel.com/?utm_source=AceAkira1017&utm_campaign=oss"
+        href="https://vercel.com/?utm_source=aceakira1017&utm_campaign=oss"
       >
         <img
           height="34px"
