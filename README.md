@@ -2,14 +2,14 @@
   <img align="center" src="https://user-images.githubusercontent.com/68690233/211316118-3adf4ec2-4082-46c2-979e-7d2127290532.png"/>
   <samp>
     <p>
-        <a href="https://lyrics.vercel.app/">playground</a> .
-        <a href="https://lyrics.vercel.app/guide/">guide</a> .
-        <a href="https:// facebook.com/ace.gerome">Facebook</a>
+        <a href="https://lyrics-ace.vercel.app/">playground</a> .
+        <a href="https://lyrics-ace.vercel.app/guide/">guide</a> .
+        <a href="https://facebook.com/ace.gerome">Facebook</a>
     </p>
   </samp>
   <img src="https://api.visitorbadge.io/api/VisitorHit?user=asheeeshh&repo=lyrist&countColor=%2337d67a" />
   <img src="https://img.shields.io/github/license/asheeeshh/lyrist?color=%2337d67a&style=for-the-badge" />
-  <img src="https://vercelbadge.vercel.app/api/AceAkira1017/lyrist?style=for-the-badge&color=%2337d67a" />
+  <img src="https://vercelbadge.vercel.app/api/aceakira1017/lyrist?style=for-the-badge&color=%2337d67a" />
 </div>
 
 ## Overview
@@ -56,7 +56,7 @@ $ pnpm run dev // or npm
 - Consider sponsoring me to help me build more projects like this.
 
 <p align="center">
-  <a rel="noopener noreferrer" target="_blank" href="https://vercel.com/?utm_source=AceAkira1017&utm_campaign=oss">
+  <a rel="noopener noreferrer" target="_blank" href="https://vercel.com/?utm_source=aceakira1017&utm_campaign=oss">
     <img height="34px" src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg" alt="Powered by vercel">
   </a>
 </p>
