@@ -5,22 +5,14 @@ import Footer from "./Footer";
 import { Toaster } from "react-hot-toast";
 import { Analytics } from "@vercel/analytics/react";
 
-interface LayoutProps {
-  children: ReactNode;
-}
-
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <Meta />
       <main className="min-w-screen flex min-h-screen flex-col items-center gap-6 bg-zinc-900 p-4 font-sans">
-        <header>
-          <Header />
-        </header>
-        <div className="flex-grow">{children}</div>
-        <footer>
-          <Footer />
-        </footer>
+        <Header />
+        {children}
+        <Footer />
       </main>
       <Analytics />
       <Toaster
