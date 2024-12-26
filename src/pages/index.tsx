@@ -17,8 +17,7 @@ const Home: NextPage = () => {
   const [trackName, setTrackName] = useState<string>("");
   const [artistName, setArtistName] = useState<string>("");
   const [copied, setCopied] = useState<boolean>(false);
-  const sleep = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleTrackChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTrackName(e.target.value);
@@ -31,40 +30,47 @@ const Home: NextPage = () => {
   const handleClick = async () => {
     if (trackName.trim() === "") {
       toast.error("Track name can't be empty!");
-    } else {
+      return;
+    }
+
+    setLoading(true);
+    try {
       const res = await fetch(`/api/${trackName}/${artistName}`);
-      if (res.ok) {
-        const data = (await res.json()) as Lyrics;
-        setLyrics(data);
-      } else {
+      if (!res.ok) {
         if (res.status === 429) {
           toast.error("Rate limit exceeded!");
-          return;
         } else {
           toast.error("Lyrics not found!");
         }
+        return;
       }
+      const data = (await res.json()) as Lyrics;
+      setLyrics(data);
+    } catch (error) {
+      toast.error("An error occurred while fetching lyrics.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleEnterPress = async (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleEnterPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.code === "Enter") {
-        await handleClick();
+      handleClick();
     }
-  }
+  };
 
   const handleCopy = () => {
-    navigator.clipboard
-      .writeText(lyrics?.lyrics || "")
-      .then(() => {
-        setCopied(true);
-        sleep(1000)
-          .then(() => setCopied(false))
-          .catch(() => null);
-      })
-      .catch(() => {
-        toast.error("Couldn't Copy!");
-      });
+    if (lyrics) {
+      navigator.clipboard
+        .writeText(lyrics.lyrics)
+        .then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1000);
+        })
+        .catch(() => {
+          toast.error("Couldn't Copy!");
+        });
+    }
   };
 
   return (
@@ -74,7 +80,7 @@ const Home: NextPage = () => {
           lyrist
         </h2>
         <p className="text-center text-base text-pink-100 md:text-xl">
-          a simple and easy to use RESTful lyrics API that just works
+          A simple and easy-to-use RESTful lyrics API that just works.
         </p>
       </section>
       <section className="flex w-full flex-col items-center justify-center gap-4 p-2 md:w-2/3 lg:w-1/2">
@@ -84,19 +90,22 @@ const Home: NextPage = () => {
             placeholder="Enter track name"
             onChange={handleTrackChange}
             onKeyUp={handleEnterPress}
-          ></input>
+            aria-label="Track name"
+          />
           <div className="flex w-full items-center justify-start gap-4">
             <input
-              className="w-full rounded-md border border-zinc-600 bg-zinc-800/60 px-4 py-2 text-pink-100 shadow-xl outline-0 placeholder:text-zinc-400 hover:outline-0"
+              className="w-full rounded-md border border-zinc-600 bg-zinc-800/60 px- 4 py-2 text-pink-100 shadow-xl outline-0 placeholder:text-zinc-400 hover:outline-0"
               placeholder="Enter artist name (leave blank if unknown)"
               onChange={handleArtistChange}
               onKeyUp={handleEnterPress}
-            ></input>
+              aria-label="Artist name"
+            />
             <button
               className="rounded-md border border-zinc-600 bg-zinc-800/90 px-4 py-2 text-pink-100 shadow-xl duration-300 hover:bg-zinc-800/60"
               onClick={handleClick}
+              disabled={loading}
             >
-              Search
+              {loading ? "Searching..." : "Search"}
             </button>
           </div>
         </div>
@@ -116,4 +125,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Home; 
